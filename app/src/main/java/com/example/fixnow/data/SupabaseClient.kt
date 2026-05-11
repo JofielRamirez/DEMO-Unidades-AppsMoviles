@@ -1,0 +1,26 @@
+package com.example.fixnow.data
+
+import io.github.jan.supabase.createSupabaseClient
+import io.github.jan.supabase.auth.Auth
+import io.github.jan.supabase.postgrest.Postgrest
+import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.realtime.Realtime
+import io.ktor.client.engine.okhttp.*
+
+object SupabaseClient {
+    val client = createSupabaseClient(
+        supabaseUrl = "https://nodxqqtyrxvgeyvezpps.supabase.co",
+        supabaseKey = "sb_publishable_Gd5B7AKCg4OcVGepIDrhUg_K1BaV3xP"
+    ) {
+        httpEngine = OkHttp.create()
+
+        install(Auth) {
+            autoSaveToStorage = true
+            autoLoadFromStorage = true
+            alwaysAutoRefresh = true
+        }
+        install(Postgrest)
+        install(Storage)
+        install(Realtime)
+    }
+}
